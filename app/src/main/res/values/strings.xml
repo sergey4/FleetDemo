@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Fleet demo</string>
+    <string name="dialog_api_enter_key">Enter API key</string>
+    <string name="dialog_api_key">API key</string>
+    <string name="dialog_api_set">Set</string>
+    <string name="dialog_api_cancel">Cancel</string>
+    <string name="menu_api_key">API key</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="item_format_kmh">%d km/h</string>
+    <string name="item_format_ago">%s ago</string>
+    <string name="location_history_date">Date:</string>
+    <string name="location_history_trip_distance">Trip distance: %.2f km</string>
+    <string name="location_history_trip_distance_no_data">Trip distance: no data</string>
+    <string name="title_vehicles">Vehicles</string>
+    <string name="title_location_history">Location history: %s</string>
+    <string name="description_set_date">Set date</string>
+</resources>

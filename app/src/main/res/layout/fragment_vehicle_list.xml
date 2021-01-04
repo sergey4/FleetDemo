@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.example.fleetdemo.model.RequestInfo"/>
+        <import type="android.view.View" />
+        <variable
+            name="model"
+            type="com.example.fleetdemo.ui.viewmodel.VehicleListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.VehicleListFragment">
+
+        <ProgressBar
+            android:layout_width="@dimen/progressbar_size"
+            android:layout_height="@dimen/progressbar_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{model.vehicleListStatus.progressBarVisible ? View.VISIBLE : View.GONE}"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vehicle_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/list_item_vehicle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

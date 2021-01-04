@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.example.fleetdemo.ui.UiUtils"/>
+        <variable
+            name="vehicle"
+            type="com.example.fleetdemo.model.Vehicle" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:onClick="@{clickListener::onClick}"
+        >
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/list_margin"
+            android:layout_marginStart="@dimen/list_margin"
+            android:layout_marginEnd="@dimen/list_margin"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_plate"
+                android:text="@{vehicle.plate + ` / ` + vehicle.driverName}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                tools:text="123 ABC / Drivername Driverlastname "
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/text_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                tools:text="120 km/h"
+                android:text="@{@string/item_format_kmh(vehicle.speed)}"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/list_margin"
+            android:layout_marginStart="@dimen/list_margin"
+            android:layout_marginEnd="@dimen/list_margin"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Street 123, City 2345"
+                android:text="@{vehicle.address}"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="10h 15m ago"
+                android:text="@{@string/item_format_ago(UiUtils.getAgoTextForTimestamp(vehicle.timestamp))}"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

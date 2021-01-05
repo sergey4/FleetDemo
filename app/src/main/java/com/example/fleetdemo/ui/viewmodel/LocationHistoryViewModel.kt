@@ -65,7 +65,9 @@ class LocationHistoryViewModel(application: Application) : AndroidViewModel(appl
             return appContext.getString(R.string.location_history_trip_distance_no_data)
         } else {
             val odometerDifference : Float = historyData.last().distance - historyData.first().distance
-            return appContext.getString(R.string.location_history_trip_distance, odometerDifference)
+            val deltaDistanceSum : Float = historyData.fold(0.0f) { sum, element -> sum + element.deltaDistance }
+            val resultDistance = if (odometerDifference > 0.0f) odometerDifference else deltaDistanceSum
+            return appContext.getString(R.string.location_history_trip_distance, resultDistance)
         }
     }
 

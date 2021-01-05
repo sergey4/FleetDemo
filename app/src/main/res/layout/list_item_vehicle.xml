@@ -15,18 +15,20 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/list_item_horizontal_margin"
+        android:layout_marginEnd="@dimen/list_item_horizontal_margin"
         android:layout_height="@dimen/list_item_height"
         android:onClick="@{clickListener::onClick}"
         >
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/list_margin"
-            android:layout_marginStart="@dimen/list_margin"
-            android:layout_marginEnd="@dimen/list_margin"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/list_item_vertical_margin"
+            >
             <TextView
                 android:id="@+id/text_plate"
+                style="@style/Theme.FleetDemo.ListText1"
                 android:text="@{vehicle.plate + ` / ` + vehicle.driverName}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,6 +41,7 @@
                 android:layout_weight="1"/>
             <TextView
                 android:id="@+id/text_speed"
+                style="@style/Theme.FleetDemo.ListText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -50,11 +53,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/list_margin"
-            android:layout_marginStart="@dimen/list_margin"
-            android:layout_marginEnd="@dimen/list_margin"
+            android:layout_marginTop="@dimen/list_item_vertical_margin"
             android:orientation="horizontal">
             <TextView
+                style="@style/Theme.FleetDemo.ListText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Street 123, City 2345"
@@ -67,6 +69,7 @@
                 />
 
             <TextView
+                style="@style/Theme.FleetDemo.ListText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="10h 15m ago"

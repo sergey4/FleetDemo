@@ -2,8 +2,6 @@ package com.example.fleetdemo.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.fleetdemo.R
 import com.example.fleetdemo.model.RequestStatus
 import com.example.fleetdemo.model.VehicleHistoryRequestParams
@@ -30,18 +28,15 @@ class LocationHistoryViewModel(application: Application) : AndroidViewModel(appl
     val year : Int
         get() = calendar.get(Calendar.YEAR)
 
-    val uiDate : LiveData<String>
-        get() = mutableUiDate
-    private var mutableUiDate : MutableLiveData<String> = MutableLiveData()
+    val dateText : String
+        get() = uiDateFormat.format(calendar.time)
 
-    val uiDistance : LiveData<String>
-        get() = mutableUiDistance
-    private var mutableUiDistance : MutableLiveData<String> = MutableLiveData("")
+    val tripDistanceText : String
+        get() = getTripDistance()
 
     // values exactly as received in OnDateSet()  (0-based month)
     fun setDate(year: Int, month: Int, dayOfMonth: Int){
         calendar.set(year, month, dayOfMonth)
-        updateUiDate()
     }
 
     fun refreshVehicleHistory(){
@@ -57,17 +52,14 @@ class LocationHistoryViewModel(application: Application) : AndroidViewModel(appl
         return VehicleHistoryRequestParams(objectId, beginDate = beginDate, endDate = endDate)
     }
 
-    fun refreshTripDistance(){
+    private fun getTripDistance() : String {
         val historyData = vehicleHistory.value ?: emptyList()
         val appContext = getApplication<Application>().applicationContext
-        if (historyData.isEmpty()){
-            val noDataText = appContext.getString(R.string.location_history_trip_distance_no_data)
-            mutableUiDistance.postValue(noDataText)
+        if (historyData.isEmpty() || (vehicleHistoryStatus.value?.status != RequestStatus.OK)){
+            return appContext.getString(R.string.location_history_trip_distance_no_data)
         } else {
             val odometerDifference : Float = historyData.last().distance - historyData.first().distance
-            mutableUiDistance.postValue(appContext.getString(
-                R.string.location_history_trip_distance,
-                odometerDifference))
+            return appContext.getString(R.string.location_history_trip_distance, odometerDifference)
         }
     }
 
@@ -82,11 +74,7 @@ class LocationHistoryViewModel(application: Application) : AndroidViewModel(appl
         return coordinates
     }
 
-    private fun updateUiDate(){
-        mutableUiDate.postValue(uiDateFormat.format(calendar.time))
-    }
-
     init {
-        updateUiDate()
+        refreshVehicleHistory()
     }
 }

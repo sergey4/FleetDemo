@@ -17,5 +17,7 @@
     <style name="Theme.FleetDemo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Theme.FleetDemo.MapText" parent="TextAppearance.MaterialComponents.Headline6"/>
+    <style name="Theme.FleetDemo.ListText1" parent="TextAppearance.MaterialComponents.Body1"/>
+    <style name="Theme.FleetDemo.ListText2" parent="TextAppearance.MaterialComponents.Body2"/>
 
 </resources>

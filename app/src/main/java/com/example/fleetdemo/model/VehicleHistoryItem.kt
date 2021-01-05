@@ -10,9 +10,9 @@ data class VehicleHistoryItem(
     val longitude: Double,
     @SerializedName("GPSState")
     val gpsState: String,
-    @SerializedName("Distance")
-    val deltaDistance: Float,
     @SerializedName("DeltaDistance")
+    val deltaDistance: Float,
+    @SerializedName("Distance")
     val distance: Float,
     @SerializedName("Speed")
     val speed: Int

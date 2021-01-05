@@ -10,4 +10,8 @@ class VehicleListViewModel(application: Application) : AndroidViewModel(applicat
     var vehicleList = dataRepository.vehicleList
     val isRefreshButtonEnabled : Boolean
         get() = dataRepository.isApiKeySet()
+
+    init {
+        dataRepository.refreshVehicleList()
+    }
 }

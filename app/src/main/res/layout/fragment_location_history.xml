@@ -9,6 +9,12 @@
             name="model"
             type="com.example.fleetdemo.ui.viewmodel.LocationHistoryViewModel" />
         <variable
+            name="tripDistance"
+            type="String" />
+        <variable
+            name="date"
+            type="String" />
+        <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
     </data>
@@ -29,30 +35,33 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/Theme.FleetDemo.ListText1"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location_history_date" />
 
             <TextView
+                style="@style/Theme.FleetDemo.ListText1"
                 android:layout_height="@dimen/history_date_display_height"
                 android:layout_width="@dimen/history_date_display_width"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:layout_marginStart="@dimen/dialog_margin"
                 tools:text="01/01/2020"
-                android:text="@{model.uiDate}"
+                android:text="@{date}"
                 />
 
             <ImageButton
+                style="@android:style/Widget.Material.ImageButton"
                 android:layout_width="@dimen/history_date_date_button_width"
                 android:layout_height="@dimen/history_date_date_button_height"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dialog_margin"
+                android:background="?android:attr/colorBackground"
                 android:contentDescription="@string/description_set_date"
-                android:src="@drawable/ic_baseline_calendar_today_24"
                 android:onClick="@{clickListener::onClick}"
-                />
+                android:src="@drawable/ic_baseline_calendar_today_24" />
 
         </LinearLayout>
 
@@ -89,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="@string/location_history_trip_distance"
-            android:text="@{model.uiDistance}"
+            android:text="@{tripDistance}"
             android:visibility="@{model.vehicleHistoryStatus.progressBarVisible ? View.INVISIBLE : View.VISIBLE}"
             />
 

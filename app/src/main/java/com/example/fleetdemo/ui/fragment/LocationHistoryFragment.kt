@@ -33,19 +33,10 @@ class LocationHistoryFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         fun newInstance() = LocationHistoryFragment()
     }
 
+    private lateinit var binding : FragmentLocationHistoryBinding
     private val viewModel: LocationHistoryViewModel by activityViewModels()
     private var mapFragment: SupportMapFragment? = null
     private val callback = OnMapReadyCallback { googleMap ->
-        tag
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
         val coordinates = viewModel.getHistoryCoordinates()
         googleMap.clear()
         if (coordinates.isNotEmpty()){
@@ -83,10 +74,11 @@ class LocationHistoryFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentLocationHistoryBinding.inflate(inflater)
+        binding = FragmentLocationHistoryBinding.inflate(inflater)
         binding.model = viewModel
         binding.clickListener = View.OnClickListener { showDateSelectionDialog() }
         binding.lifecycleOwner = this
+        updateTextBindings()
         return binding.root
     }
 
@@ -97,7 +89,7 @@ class LocationHistoryFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         viewModel.vehicleHistoryStatus.observe(viewLifecycleOwner,
             { status -> updateUiForStatus(status) }
         )
-        viewModel.refreshVehicleHistory()
+        mapFragment?.getMapAsync(callback)
     }
 
     private fun showDateSelectionDialog(){
@@ -114,12 +106,17 @@ class LocationHistoryFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun updateUiForStatus(requestInfo : RequestInfo) {
         Log.d(logTag, "updateUiForStatus, status = ${requestInfo.status}")
-        when(requestInfo.status) {
-            RequestStatus.FAILED -> UiUtils.showError(view, requestInfo)
-            RequestStatus.OK -> updateMap()
-            else -> return
+        updateTextBindings()
+        if (requestInfo.status == RequestStatus.FAILED) {
+            UiUtils.showError(view, requestInfo)
+        } else if (requestInfo.status == RequestStatus.OK) {
+            updateMap()
         }
-        viewModel.refreshTripDistance()
+    }
+
+    private fun updateTextBindings(){
+        binding.date = viewModel.dateText
+        binding.tripDistance = viewModel.tripDistanceText
     }
 
     private fun updateMap(){

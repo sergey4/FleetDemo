@@ -17,6 +17,12 @@ class LocationHistoryViewModel(application: Application) : AndroidViewModel(appl
     private val uiDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
 
     var objectId : Int = 0
+        set(value){
+            if (value > 0){
+                field = value
+                refreshVehicleHistory()
+            }
+        }
     var plate: String = ""
     var vehicleHistoryStatus = dataRepository.vehicleHistoryStatus
     private var vehicleHistory = dataRepository.vehicleHistory
@@ -74,7 +80,4 @@ class LocationHistoryViewModel(application: Application) : AndroidViewModel(appl
         return coordinates
     }
 
-    init {
-        refreshVehicleHistory()
-    }
 }

@@ -1,3 +1,5 @@
+@file:Suppress("UsePropertyAccessSyntax")
+
 package com.example.fleetdemo.ui.fragment
 
 import android.content.Context

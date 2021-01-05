@@ -19,7 +19,7 @@ class LocationHistoryViewModel(application: Application) : AndroidViewModel(appl
     var objectId : Int = 0
     var plate: String = ""
     var vehicleHistoryStatus = dataRepository.vehicleHistoryStatus
-    var vehicleHistory = dataRepository.vehicleHistory
+    private var vehicleHistory = dataRepository.vehicleHistory
 
     val day : Int
         get() = calendar.get(Calendar.DAY_OF_MONTH)

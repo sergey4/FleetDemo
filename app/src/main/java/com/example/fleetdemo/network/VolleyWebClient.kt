@@ -108,7 +108,7 @@ class VolleyWebClient(applicationContext : Context, private val baseApiUrl : Str
                             responseListener : Response.Listener<T>,
                             errorListener : Response.ErrorListener,
                             requestTag : String) {
-        // TODO: remove
+
         Log.d(logTag, "sendRequest(), url = $url")
 
         val jsonRequest =

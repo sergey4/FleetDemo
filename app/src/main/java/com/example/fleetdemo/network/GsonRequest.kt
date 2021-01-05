@@ -23,11 +23,17 @@ class GsonRequest<T>(
 
     override fun deliverResponse(response: T) = listener.onResponse(response)
 
+    // workaround for misconfigured servers / older devices
+    private fun getFilteredName(charsetName: String) : String {
+        val re = Regex("[^\\w\\-+.:]")
+        return re.replace(charsetName, "")
+    }
+
     override fun parseNetworkResponse(response: NetworkResponse?): Response<T> {
         return try {
             val json = String(
                 response?.data ?: ByteArray(0),
-                Charset.forName(HttpHeaderParser.parseCharset(response?.headers)))
+                Charset.forName(getFilteredName(HttpHeaderParser.parseCharset(response?.headers))))
             Response.success(
                 gson.fromJson(json, clazz),
                 HttpHeaderParser.parseCacheHeaders(response))

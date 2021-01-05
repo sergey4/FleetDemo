@@ -12,7 +12,7 @@ object UiUtils {
     private const val dateFormat = "yyyy-MM-dd HH:mm:ssZ"
 
     private fun getTimeDifference(timestamp: String) : Long {
-        var parsedDate: Date?
+        val parsedDate: Date?
         try {
             parsedDate = SimpleDateFormat(dateFormat, Locale.ENGLISH).parse(timestamp)
         } catch (e : ParseException) {
@@ -31,7 +31,7 @@ object UiUtils {
         val days = differenceInSeconds / (60*60*24)
         var secondsRemaining = differenceInSeconds % (60*60*24)
         val hours = secondsRemaining / (60*60)
-        secondsRemaining = secondsRemaining % (60*60)
+        secondsRemaining %= (60 * 60)
         val minutes = secondsRemaining / 60
         val seconds = secondsRemaining % 60
         return when {
